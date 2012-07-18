@@ -1,0 +1,28 @@
+﻿@model CP.Models.AllUsers
+@{
+    ViewBag.Title = "Users";
+}
+<h2>
+    Все пользователи</h2>
+@using (Html.BeginForm())
+{
+    <table>
+        @foreach (var user in Model.users)
+        {      
+            <tr>
+                <td>@user.Login
+                </td>
+                <td>@user.Email
+                </td>
+                <td>@user.About
+                </td>
+                <td>@user.RegistrationDate.ToString()
+                </td>
+            </tr>           
+        }
+    </table>
+   
+}
+<script>
+    count_rabbits();
+</script>

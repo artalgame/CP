@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SimPresModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="SimPresModelStoreContainer">
+          <EntitySet Name="Contents" EntityType="SimPresModel.Store.Contents" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Presentations" EntityType="SimPresModel.Store.Presentations" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ratings" EntityType="SimPresModel.Store.Ratings" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Slides" EntityType="SimPresModel.Store.Slides" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="SimPresModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Titles" EntityType="SimPresModel.Store.Titles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="SimPresModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Presentations_Presentations" Association="SimPresModel.Store.FK_Presentations_Presentations">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Presentations" EntitySet="Presentations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratings_Presentations" Association="SimPresModel.Store.FK_Ratings_Presentations">
+            <End Role="Presentations" EntitySet="Presentations" />
+            <End Role="Ratings" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratings_Users" Association="SimPresModel.Store.FK_Ratings_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Ratings" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Slides_Contents" Association="SimPresModel.Store.FK_Slides_Contents">
+            <End Role="Contents" EntitySet="Contents" />
+            <End Role="Slides" EntitySet="Slides" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Slides_Presentations" Association="SimPresModel.Store.FK_Slides_Presentations">
+            <End Role="Presentations" EntitySet="Presentations" />
+            <End Role="Slides" EntitySet="Slides" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Slides_Titles" Association="SimPresModel.Store.FK_Slides_Titles">
+            <End Role="Titles" EntitySet="Titles" />
+            <End Role="Slides" EntitySet="Slides" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Contents">
+          <Key>
+            <PropertyRef Name="ContentId" />
+          </Key>
+          <Property Name="ContentId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="Font" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="FontSize" Type="int" Nullable="false" />
+          <Property Name="FontColor" Type="nchar" Nullable="false" MaxLength="6" />
+          <Property Name="FontStyle" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Presentations">
+          <Key>
+            <PropertyRef Name="PresentationId" />
+          </Key>
+          <Property Name="PresentationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="About" Type="nvarchar" Nullable="false" MaxLength="300" />
+          <Property Name="DateOfCreate" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ratings">
+          <Key>
+            <PropertyRef Name="RatingId" />
+          </Key>
+          <Property Name="RatingId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PresentationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Slides">
+          <Key>
+            <PropertyRef Name="SlideId" />
+          </Key>
+          <Property Name="SlideId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PresentationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FonColor" Type="nchar" Nullable="false" MaxLength="6" />
+          <Property Name="TitleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ContentId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Titles">
+          <Key>
+            <PropertyRef Name="TitleId" />
+          </Key>
+          <Property Name="TitleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Font" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="FontSize" Type="int" Nullable="false" />
+          <Property Name="FontColor" Type="nchar" Nullable="false" MaxLength="6" />
+          <Property Name="FontStyle" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="About" Type="nvarchar" Nullable="false" MaxLength="300" />
+          <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Presentations_Presentations">
+          <End Role="Users" Type="SimPresModel.Store.Users" Multiplicity="1" />
+          <End Role="Presentations" Type="SimPresModel.Store.Presentations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Presentations">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratings_Presentations">
+          <End Role="Presentations" Type="SimPresModel.Store.Presentations" Multiplicity="1" />
+          <End Role="Ratings" Type="SimPresModel.Store.Ratings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Presentations">
+              <PropertyRef Name="PresentationId" />
+            </Principal>
+            <Dependent Role="Ratings">
+              <PropertyRef Name="PresentationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratings_Users">
+          <End Role="Users" Type="SimPresModel.Store.Users" Multiplicity="1" />
+          <End Role="Ratings" Type="SimPresModel.Store.Ratings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Ratings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Slides_Contents">
+          <End Role="Contents" Type="SimPresModel.Store.Contents" Multiplicity="1" />
+          <End Role="Slides" Type="SimPresModel.Store.Slides" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contents">
+              <PropertyRef Name="ContentId" />
+            </Principal>
+            <Dependent Role="Slides">
+              <PropertyRef Name="ContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Slides_Presentations">
+          <End Role="Presentations" Type="SimPresModel.Store.Presentations" Multiplicity="1" />
+          <End Role="Slides" Type="SimPresModel.Store.Slides" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Presentations">
+              <PropertyRef Name="PresentationId" />
+            </Principal>
+            <Dependent Role="Slides">
+              <PropertyRef Name="PresentationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Slides_Titles">
+          <End Role="Titles" Type="SimPresModel.Store.Titles" Multiplicity="1" />
+          <End Role="Slides" Type="SimPresModel.Store.Slides" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Titles">
+              <PropertyRef Name="TitleId" />
+            </Principal>
+            <Dependent Role="Slides">
+              <PropertyRef Name="TitleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SimPresModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="SimPresEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contents" EntityType="SimPresModel.Content" />
+          <EntitySet Name="Presentations" EntityType="SimPresModel.Presentation" />
+          <EntitySet Name="Ratings" EntityType="SimPresModel.Rating" />
+          <EntitySet Name="Slides" EntityType="SimPresModel.Slide" />
+          <EntitySet Name="sysdiagrams" EntityType="SimPresModel.sysdiagram" />
+          <EntitySet Name="Titles" EntityType="SimPresModel.Title" />
+          <EntitySet Name="Users" EntityType="SimPresModel.User" />
+          <AssociationSet Name="FK_Slides_Contents" Association="SimPresModel.FK_Slides_Contents">
+            <End Role="Contents" EntitySet="Contents" />
+            <End Role="Slides" EntitySet="Slides" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Presentations_Presentations" Association="SimPresModel.FK_Presentations_Presentations">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Presentations" EntitySet="Presentations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratings_Presentations" Association="SimPresModel.FK_Ratings_Presentations">
+            <End Role="Presentations" EntitySet="Presentations" />
+            <End Role="Ratings" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Slides_Presentations" Association="SimPresModel.FK_Slides_Presentations">
+            <End Role="Presentations" EntitySet="Presentations" />
+            <End Role="Slides" EntitySet="Slides" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratings_Users" Association="SimPresModel.FK_Ratings_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Ratings" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Slides_Titles" Association="SimPresModel.FK_Slides_Titles">
+            <End Role="Titles" EntitySet="Titles" />
+            <End Role="Slides" EntitySet="Slides" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Content">
+          <Key>
+            <PropertyRef Name="ContentId" />
+          </Key>
+          <Property Name="ContentId" Type="Guid" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Font" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="FontSize" Type="Int32" Nullable="false" />
+          <Property Name="FontColor" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+          <Property Name="FontStyle" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Slides" Relationship="SimPresModel.FK_Slides_Contents" FromRole="Contents" ToRole="Slides" />
+        </EntityType>
+        <EntityType Name="Presentation">
+          <Key>
+            <PropertyRef Name="PresentationId" />
+          </Key>
+          <Property Name="PresentationId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="About" Type="String" Nullable="false" MaxLength="300" Unicode="true" FixedLength="false" />
+          <Property Name="DateOfCreate" Type="DateTime" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="SimPresModel.FK_Presentations_Presentations" FromRole="Presentations" ToRole="Users" />
+          <NavigationProperty Name="Ratings" Relationship="SimPresModel.FK_Ratings_Presentations" FromRole="Presentations" ToRole="Ratings" />
+          <NavigationProperty Name="Slides" Relationship="SimPresModel.FK_Slides_Presentations" FromRole="Presentations" ToRole="Slides" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="RatingId" />
+          </Key>
+          <Property Name="RatingId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="PresentationId" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Presentation" Relationship="SimPresModel.FK_Ratings_Presentations" FromRole="Ratings" ToRole="Presentations" />
+          <NavigationProperty Name="User" Relationship="SimPresModel.FK_Ratings_Users" FromRole="Ratings" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Slide">
+          <Key>
+            <PropertyRef Name="SlideId" />
+          </Key>
+          <Property Name="SlideId" Type="Guid" Nullable="false" />
+          <Property Name="PresentationId" Type="Guid" Nullable="false" />
+          <Property Name="FonColor" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+          <Property Name="TitleId" Type="Guid" Nullable="false" />
+          <Property Name="ContentId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Content" Relationship="SimPresModel.FK_Slides_Contents" FromRole="Slides" ToRole="Contents" />
+          <NavigationProperty Name="Presentation" Relationship="SimPresModel.FK_Slides_Presentations" FromRole="Slides" ToRole="Presentations" />
+          <NavigationProperty Name="Title" Relationship="SimPresModel.FK_Slides_Titles" FromRole="Slides" ToRole="Titles" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Title">
+          <Key>
+            <PropertyRef Name="TitleId" />
+          </Key>
+          <Property Name="TitleId" Type="Guid" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Font" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="FontSize" Type="Int32" Nullable="false" />
+          <Property Name="FontColor" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+          <Property Name="FontStyle" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Slides" Relationship="SimPresModel.FK_Slides_Titles" FromRole="Titles" ToRole="Slides" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="About" Type="String" Nullable="false" MaxLength="300" Unicode="true" FixedLength="false" />
+          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Presentations" Relationship="SimPresModel.FK_Presentations_Presentations" FromRole="Users" ToRole="Presentations" />
+          <NavigationProperty Name="Ratings" Relationship="SimPresModel.FK_Ratings_Users" FromRole="Users" ToRole="Ratings" />
+        </EntityType>
+        <Association Name="FK_Slides_Contents">
+          <End Role="Contents" Type="SimPresModel.Content" Multiplicity="1" />
+          <End Role="Slides" Type="SimPresModel.Slide" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contents">
+              <PropertyRef Name="ContentId" />
+            </Principal>
+            <Dependent Role="Slides">
+              <PropertyRef Name="ContentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Presentations_Presentations">
+          <End Role="Users" Type="SimPresModel.User" Multiplicity="1" />
+          <End Role="Presentations" Type="SimPresModel.Presentation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Presentations">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratings_Presentations">
+          <End Role="Presentations" Type="SimPresModel.Presentation" Multiplicity="1" />
+          <End Role="Ratings" Type="SimPresModel.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Presentations">
+              <PropertyRef Name="PresentationId" />
+            </Principal>
+            <Dependent Role="Ratings">
+              <PropertyRef Name="PresentationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Slides_Presentations">
+          <End Role="Presentations" Type="SimPresModel.Presentation" Multiplicity="1" />
+          <End Role="Slides" Type="SimPresModel.Slide" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Presentations">
+              <PropertyRef Name="PresentationId" />
+            </Principal>
+            <Dependent Role="Slides">
+              <PropertyRef Name="PresentationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratings_Users">
+          <End Role="Users" Type="SimPresModel.User" Multiplicity="1" />
+          <End Role="Ratings" Type="SimPresModel.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Ratings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Slides_Titles">
+          <End Role="Titles" Type="SimPresModel.Title" Multiplicity="1" />
+          <End Role="Slides" Type="SimPresModel.Slide" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Titles">
+              <PropertyRef Name="TitleId" />
+            </Principal>
+            <Dependent Role="Slides">
+              <PropertyRef Name="TitleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SimPresModelStoreContainer" CdmEntityContainer="SimPresEntities">
+          <EntitySetMapping Name="Contents"><EntityTypeMapping TypeName="SimPresModel.Content"><MappingFragment StoreEntitySet="Contents">
+            <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+            <ScalarProperty Name="Text" ColumnName="Text" />
+            <ScalarProperty Name="Font" ColumnName="Font" />
+            <ScalarProperty Name="FontSize" ColumnName="FontSize" />
+            <ScalarProperty Name="FontColor" ColumnName="FontColor" />
+            <ScalarProperty Name="FontStyle" ColumnName="FontStyle" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Presentations"><EntityTypeMapping TypeName="SimPresModel.Presentation"><MappingFragment StoreEntitySet="Presentations">
+            <ScalarProperty Name="PresentationId" ColumnName="PresentationId" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="About" ColumnName="About" />
+            <ScalarProperty Name="DateOfCreate" ColumnName="DateOfCreate" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Ratings"><EntityTypeMapping TypeName="SimPresModel.Rating"><MappingFragment StoreEntitySet="Ratings">
+            <ScalarProperty Name="RatingId" ColumnName="RatingId" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="PresentationId" ColumnName="PresentationId" />
+            <ScalarProperty Name="Value" ColumnName="Value" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Slides"><EntityTypeMapping TypeName="SimPresModel.Slide"><MappingFragment StoreEntitySet="Slides">
+            <ScalarProperty Name="SlideId" ColumnName="SlideId" />
+            <ScalarProperty Name="PresentationId" ColumnName="PresentationId" />
+            <ScalarProperty Name="FonColor" ColumnName="FonColor" />
+            <ScalarProperty Name="TitleId" ColumnName="TitleId" />
+            <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams"><EntityTypeMapping TypeName="SimPresModel.sysdiagram"><MappingFragment StoreEntitySet="sysdiagrams">
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+            <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+            <ScalarProperty Name="version" ColumnName="version" />
+            <ScalarProperty Name="definition" ColumnName="definition" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Titles"><EntityTypeMapping TypeName="SimPresModel.Title"><MappingFragment StoreEntitySet="Titles">
+            <ScalarProperty Name="TitleId" ColumnName="TitleId" />
+            <ScalarProperty Name="Text" ColumnName="Text" />
+            <ScalarProperty Name="Font" ColumnName="Font" />
+            <ScalarProperty Name="FontSize" ColumnName="FontSize" />
+            <ScalarProperty Name="FontColor" ColumnName="FontColor" />
+            <ScalarProperty Name="FontStyle" ColumnName="FontStyle" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="SimPresModel.User"><MappingFragment StoreEntitySet="Users">
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="Login" ColumnName="Login" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="About" ColumnName="About" />
+            <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="SimPresDataModel" ZoomLevel="64">
+        <EntityTypeShape EntityType="SimPresModel.Content" Width="1.5" PointX="10.375" PointY="2.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimPresModel.Presentation" Width="1.5" PointX="6" PointY="1.25" Height="1.9802864583333331" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimPresModel.Rating" Width="1.5" PointX="6.125" PointY="6.875" Height="1.7879850260416657" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimPresModel.Slide" Width="1.5" PointX="8.25" PointY="4.25" Height="1.9802864583333326" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimPresModel.sysdiagram" Width="1.5" PointX="0.75" PointY="8.375" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimPresModel.Title" Width="1.5" PointX="10.25" PointY="5.625" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimPresModel.User" Width="1.5" PointX="0.75" PointY="4.25" Height="1.9802864583333326" IsExpanded="true" />
+        <AssociationConnector Association="SimPresModel.FK_Slides_Contents" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.375" PointY="4.5862939453125" />
+          <ConnectorPoint PointX="9.75" PointY="4.5862939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="SimPresModel.FK_Presentations_Presentations" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="4.25" />
+          <ConnectorPoint PointX="1.5" PointY="2.2401432291666667" />
+          <ConnectorPoint PointX="6" PointY="2.2401432291666667" />
+        </AssociationConnector>
+        <AssociationConnector Association="SimPresModel.FK_Ratings_Presentations" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.4843771875" PointY="3.2302864583333331" />
+          <ConnectorPoint PointX="6.4843771875" PointY="6.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="SimPresModel.FK_Slides_Presentations" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.968754375" PointY="3.2302864583333331" />
+          <ConnectorPoint PointX="6.968754375" PointY="5.008233671875" />
+          <ConnectorPoint PointX="8.25" PointY="5.008233671875" />
+        </AssociationConnector>
+        <AssociationConnector Association="SimPresModel.FK_Ratings_Users" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.6192600651041662" />
+          <ConnectorPoint PointX="6.4010438541666668" PointY="5.6192600651041653" />
+          <ConnectorPoint PointX="6.5677105208333328" PointY="5.6192600651041662" />
+          <ConnectorPoint PointX="7.2968771875" PointY="5.6192600651041662" />
+          <ConnectorPoint PointX="7.2968771875" PointY="6.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="SimPresModel.FK_Slides_Titles" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.25" PointY="5.9276432291666659" />
+          <ConnectorPoint PointX="9.75" PointY="5.9276432291666659" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
