@@ -1,8 +1,7 @@
-﻿@{
-    ViewBag.Title = "About Us";
-}
+﻿<script src="@Url.Content("~/Content/jscripts/DrawScript.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/iColorPicker.js")" type="text/javascript"></script>
 
-<h2>About</h2>
-<p>
-     Put content here.
-</p>
+<canvas id="myCanvas" width="578" height="200">
+</canvas>
+<script>    DrawText("This is text for drawing");</script>
+<input id="mycolor" name="mycolor" type="text" value="#ffcc00" class="iColorPicker" />

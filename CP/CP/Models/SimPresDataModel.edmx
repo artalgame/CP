@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SimPresModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="SimPresModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="SimPresModelStoreContainer">
           <EntitySet Name="Contents" EntityType="SimPresModel.Store.Contents" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Presentations" EntityType="SimPresModel.Store.Presentations" store:Type="Tables" Schema="dbo" />
@@ -77,6 +77,7 @@
           <Property Name="FonColor" Type="nchar" Nullable="false" MaxLength="6" />
           <Property Name="TitleId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ContentId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SlideNumber" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -181,8 +182,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SimPresModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -267,6 +267,7 @@
           <NavigationProperty Name="Content" Relationship="SimPresModel.FK_Slides_Contents" FromRole="Slides" ToRole="Contents" />
           <NavigationProperty Name="Presentation" Relationship="SimPresModel.FK_Slides_Presentations" FromRole="Slides" ToRole="Presentations" />
           <NavigationProperty Name="Title" Relationship="SimPresModel.FK_Slides_Titles" FromRole="Slides" ToRole="Titles" />
+          <Property Type="Int32" Name="SlideNumber" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -402,7 +403,8 @@
             <ScalarProperty Name="Value" ColumnName="Value" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Slides"><EntityTypeMapping TypeName="SimPresModel.Slide"><MappingFragment StoreEntitySet="Slides">
-            <ScalarProperty Name="SlideId" ColumnName="SlideId" />
+            <ScalarProperty Name="SlideNumber" ColumnName="SlideNumber" />
+                <ScalarProperty Name="SlideId" ColumnName="SlideId" />
             <ScalarProperty Name="PresentationId" ColumnName="PresentationId" />
             <ScalarProperty Name="FonColor" ColumnName="FonColor" />
             <ScalarProperty Name="TitleId" ColumnName="TitleId" />

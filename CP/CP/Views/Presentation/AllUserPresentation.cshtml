@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "AllUserPresentation";
+}
+
+<h2>AllUserPresentation</h2>
+@using (Html.BeginForm())
+{
+    <table>
+        @foreach (var presentation in ViewBag.Presentations)
+        {      
+            <tr>
+                <td>@presentation.Name
+                </td>
+                <td>@presentation.About
+                </td>
+            </tr>           
+        }
+    </table>
+   
+}

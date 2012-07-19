@@ -938,7 +938,8 @@ namespace CP.Models
         /// <param name="fonColor">Initial value of the FonColor property.</param>
         /// <param name="titleId">Initial value of the TitleId property.</param>
         /// <param name="contentId">Initial value of the ContentId property.</param>
-        public static Slide CreateSlide(global::System.Guid slideId, global::System.Guid presentationId, global::System.String fonColor, global::System.Guid titleId, global::System.Guid contentId)
+        /// <param name="slideNumber">Initial value of the SlideNumber property.</param>
+        public static Slide CreateSlide(global::System.Guid slideId, global::System.Guid presentationId, global::System.String fonColor, global::System.Guid titleId, global::System.Guid contentId, global::System.Int32 slideNumber)
         {
             Slide slide = new Slide();
             slide.SlideId = slideId;
@@ -946,6 +947,7 @@ namespace CP.Models
             slide.FonColor = fonColor;
             slide.TitleId = titleId;
             slide.ContentId = contentId;
+            slide.SlideNumber = slideNumber;
             return slide;
         }
 
@@ -1074,6 +1076,30 @@ namespace CP.Models
         private global::System.Guid _ContentId;
         partial void OnContentIdChanging(global::System.Guid value);
         partial void OnContentIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SlideNumber
+        {
+            get
+            {
+                return _SlideNumber;
+            }
+            set
+            {
+                OnSlideNumberChanging(value);
+                ReportPropertyChanging("SlideNumber");
+                _SlideNumber = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SlideNumber");
+                OnSlideNumberChanged();
+            }
+        }
+        private global::System.Int32 _SlideNumber;
+        partial void OnSlideNumberChanging(global::System.Int32 value);
+        partial void OnSlideNumberChanged();
 
         #endregion
     

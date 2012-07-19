@@ -322,3 +322,6 @@ div#title {
 .tri-state {
     width: 6em;
 }
+#myCanvas {
+        border: 1px solid #9C9898;
+      }

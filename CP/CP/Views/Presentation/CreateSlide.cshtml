@@ -1,0 +1,37 @@
+﻿<script src="@Url.Content("~/Content/jscripts/DrawScript.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/iColorPicker.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    function DrawSlide() {
+        var canvas = document.getElementById("myCanvas");
+        var context = canvas.getContext("2d");
+        context.clearRect(0, 0, 800, 600);
+        var title = document.getElementById("Title").value;
+        var color = document.getElementById("mycolor").value;
+        var content = document.getElementById("Content").value;
+        context.fillStyle = color;
+        context.fillRect(0, 0, 800, 600);
+        DrawText(title, 100, 100);
+        DrawText(content, 100, 400);
+    }</script>
+@model CP.Models.SlideModel
+@{
+    ViewBag.Title = "CreateSlide";
+}
+<h2>
+    CreateSlide</h2>
+<div>
+    <canvas id="myCanvas" width="800" height="600">
+    </canvas>
+</div>
+<input id="mycolor" name="mycolor" type="text" value="#ffcc00"  class="iColorPicker" />
+<input id="Title" name="Title" type="text" value="" />
+<input id="Content" name="Content" type="text" value="" />
+<input id="viewTitle" type="button" value="Просмотр" onclick="DrawSlide('fdsfd')" />
+<p>
+    <input type="submit" value="Register" />
+</p>
+@using (Html.BeginForm())
+{
+    @Html.DisplayFor(m => m.SlideNumber);
+    @Html.ActionLink("Save Slide and go to next", "CreateSlide", Model);
+}
