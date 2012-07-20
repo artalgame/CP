@@ -42,7 +42,7 @@ namespace CP.Controllers
                     db.Presentations.AddObject(currentPresentation);
                     db.SaveChanges();
 
-                    TempData.Add("currentPresentation", currentPresentation);
+                    TempData.Add("currentPresentationId", currentPresentation.PresentationId);
                     return RedirectToAction("CreateSlide", "Presentation");
                 }
                 else
@@ -66,7 +66,13 @@ namespace CP.Controllers
         [HttpPost]
         public ActionResult CreateSlide(SlideModel newSlide)
         {
+            newSlide.TitleOfSlide.FontSize = Int32.Parse(newSlide.TitleFontSize);
+            newSlide.ContentOfSlide.FontSize = Int32.Parse(newSlide.ContentFontSize);
             var db = new SimPresEntities();
+            db.Contents.AddObject(newSlide.ContentOfSlide);
+            db.SaveChanges();
+            db.Titles.AddObject(newSlide.TitleOfSlide);
+            db.SaveChanges();
             db.Slides.AddObject(new Slide()
             {
                 Content = newSlide.ContentOfSlide,
@@ -74,19 +80,28 @@ namespace CP.Controllers
                 SlideNumber = newSlide.SlideNumber,
                 SlideId = Guid.NewGuid(),
                 FonColor = newSlide.FonColor,
-                Presentation = newSlide.CurrentPresentation
+                PresentationId = newSlide.PresentationId
             });
             db.SaveChanges();
+            newSlide.SlideNumber++;
             return View(newSlide);
         }
 
         public ActionResult CreateSlide()
         {
-            var currentPresentation = TempData["currentPresentation"];
+            var currentPresentationId = TempData["currentPresentationId"];
             var newSlide = new SlideModel();
-            newSlide.CurrentPresentation = (Presentation)currentPresentation;
+            if (currentPresentationId != null)
+            {
+                newSlide.PresentationId = (Guid)currentPresentationId;
+            }
             newSlide.SlideNumber = 1;
             return View(newSlide);
+        }
+
+        public ActionResult FinishPresentation()
+        {
+            return RedirectToAction("AllUserPresentation");
         }
     }
 }

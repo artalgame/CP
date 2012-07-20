@@ -5,14 +5,28 @@
         var canvas = document.getElementById("myCanvas");
         var context = canvas.getContext("2d");
         context.clearRect(0, 0, 800, 600);
-        var title = document.getElementById("Title").value;
-        var color = document.getElementById("mycolor").value;
-        var content = document.getElementById("Content").value;
-        context.fillStyle = color;
+
+        var titleText = document.getElementById("titleText").value;
+        var titleFontColor = document.getElementById("titleFontColor").value;
+        var titleFontSize = document.getElementById("titleFontSize").value;
+        var titleFontFamily = document.getElementById("titleFontFamily").value;
+        var titleFontStyle = document.getElementById("titleFontStyle").value;
+
+        var contentText = document.getElementById("contentText").value;
+        var contentFontColor = document.getElementById("contentFontColor").value;
+        var contentFontSize = document.getElementById("contentFontSize").value;
+        var contentFontFamily = document.getElementById("contentFontFamily").value;
+        var contentFontStyle = document.getElementById("contentFontStyle").value;
+
+
+        var fonColor = document.getElementById("slideFonColor").value;
+
+        context.fillStyle = fonColor;
         context.fillRect(0, 0, 800, 600);
-        DrawText(title, 100, 100);
-        DrawText(content, 100, 400);
+        DrawText(titleText, 50, 100, titleFontColor, titleFontFamily, titleFontSize, titleFontStyle);
+        DrawText(contentText, 50, 200,contentFontColor,contentFontFamily,contentFontSize,contentFontStyle);
     }</script>
+
 @model CP.Models.SlideModel
 @{
     ViewBag.Title = "CreateSlide";
@@ -23,15 +37,60 @@
     <canvas id="myCanvas" width="800" height="600">
     </canvas>
 </div>
-<input id="mycolor" name="mycolor" type="text" value="#ffcc00"  class="iColorPicker" />
-<input id="Title" name="Title" type="text" value="" />
-<input id="Content" name="Content" type="text" value="" />
-<input id="viewTitle" type="button" value="Просмотр" onclick="DrawSlide('fdsfd')" />
-<p>
-    <input type="submit" value="Register" />
-</p>
 @using (Html.BeginForm())
 {
-    @Html.DisplayFor(m => m.SlideNumber);
-    @Html.ActionLink("Save Slide and go to next", "CreateSlide", Model);
+    <p>
+        @Html.LabelFor(m => m.SlideNumber, "Slide #" + Model.SlideNumber);
+    </p>
+    <p>
+        <input type="hidden" name="PresentationId" value="@Model.PresentationId" />
+        <input type="hidden" name="SlideNumber" value="@Model.SlideNumber" />
+        @Html.LabelFor(m => m.FonColor, "Цвет фона слайда");
+        @Html.TextBoxFor(m => m.FonColor, new { @class = "iColorPicker", id = "slideFonColor" });
+    </p>
+    <!--<input id="slideFonColor" name="mycolor" type="text" value="#ffcc00" class="iColorPicker" /> -->
+    <p>
+        @Html.LabelFor(m => m.TitleOfSlide.Text, "Заголовок слайда");
+        @Html.TextBoxFor(m => m.TitleOfSlide.Text, new { id = "titleText", name = "titleText", value = "" });
+        @Html.LabelFor(m => m.TitleOfSlide.FontSize, "Размер шрифта заголовка");
+        @Html.ListBoxFor(m => m.TitleFontSize, new SelectList(new List<string>() {""}), new { name = "titleFontSize", id = "titleFontSize" });
+        @Html.LabelFor(m => m.TitleOfSlide.FontColor, "Цвет заголовка");
+        @Html.TextBoxFor(m => m.TitleOfSlide.FontColor, new { @class = "iColorPicker", id = "titleFontColor" });
+        @Html.Hidden("TitleOfSlide.Font","serif", new { id = "titleFontFamily"});
+        @Html.Hidden("TitleOfSlide.FontStyle","normal", new { id = "titleFontStyle" });
+    </p>
+    <p />
+    <p>
+        @Html.LabelFor(m => m.ContentOfSlide.Text, "Текст слайда");
+        @Html.TextBoxFor(m => m.ContentOfSlide.Text, new { id = "contentText", name = "contentText", value = "" });
+        @Html.LabelFor(m => m.ContentOfSlide.FontSize, "Размер шрифта содержимого");
+        @Html.ListBoxFor(m => m.ContentFontSize, new SelectList(new List<string>() {""}), new {name="contentFontSize", id = "contentFontSize", value = "" });
+        @Html.LabelFor(m => m.ContentOfSlide.FontColor, "Цвет содержимого");
+        @Html.TextBoxFor(m => m.ContentOfSlide.FontColor, new { @class = "iColorPicker", id = "contentFontColor" });
+        @Html.Hidden("ContentOfSlide.Font","serif", new { id = "contentFontFamily" });
+        @Html.Hidden("ContentOfSlide.FontStyle","normal", new { id = "contentFontStyle" });
+    </p>
+    <p>
+        <input id="viewSlide" type="button" value="Просмотр" onclick="DrawSlide()" />
+        <input type="submit" value="Сохранить слайд и перейти к редактированию следующего" />  
+        @Html.ActionLink("Закончить создание презентации", "FinishPresentation");
+    </p>
 }
+<script type="text/javascript">
+    var fontSizeList = document.getElementById("titleFontSize");
+    for (var i = 1; i <= 72; i++) {
+        var newSize = document.createElement("option");
+        newSize.appendChild(document.createTextNode(i));
+        newSize.setAttribute("value", i);
+        fontSizeList.appendChild(newSize);
+    }
+</script>
+<script type="text/javascript">
+    var fontSizeList = document.getElementById("contentFontSize");
+    for (var i = 1; i <= 72; i++) {
+        var newSize = document.createElement("option");
+        newSize.appendChild(document.createTextNode(i));
+        newSize.setAttribute("value", i);
+        fontSizeList.appendChild(newSize);
+    }
+</script>

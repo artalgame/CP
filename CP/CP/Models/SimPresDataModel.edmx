@@ -46,7 +46,7 @@
           <Property Name="Text" Type="nvarchar" Nullable="false" MaxLength="500" />
           <Property Name="Font" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="FontSize" Type="int" Nullable="false" />
-          <Property Name="FontColor" Type="nchar" Nullable="false" MaxLength="6" />
+          <Property Name="FontColor" Type="nvarchar" Nullable="false" MaxLength="10" />
           <Property Name="FontStyle" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="Presentations">
@@ -74,7 +74,7 @@
           </Key>
           <Property Name="SlideId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PresentationId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="FonColor" Type="nchar" Nullable="false" MaxLength="6" />
+          <Property Name="FonColor" Type="nvarchar" Nullable="false" MaxLength="10" />
           <Property Name="TitleId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ContentId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="SlideNumber" Type="int" Nullable="false" />
@@ -97,7 +97,7 @@
           <Property Name="Text" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="Font" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="FontSize" Type="int" Nullable="false" />
-          <Property Name="FontColor" Type="nchar" Nullable="false" MaxLength="6" />
+          <Property Name="FontColor" Type="nvarchar" Nullable="false" MaxLength="10" />
           <Property Name="FontStyle" Type="nvarchar" Nullable="false" MaxLength="10" />
         </EntityType>
         <EntityType Name="Users">
