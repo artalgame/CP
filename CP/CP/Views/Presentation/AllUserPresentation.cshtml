@@ -9,7 +9,8 @@
         @foreach (var presentation in ViewBag.Presentations)
         {      
             <tr>
-                <td>@presentation.Name
+                <td>
+                @Html.ActionLink((string)presentation.Name,"SelectPresentation",new {id = presentation.PresentationId})
                 </td>
                 <td>@presentation.About
                 </td>

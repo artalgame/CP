@@ -9,22 +9,32 @@ namespace CP.Models
     public class SlideModel
     {
         public Guid PresentationId { get; set; }
-        public Title TitleOfSlide { get; set; }
-        public Content ContentOfSlide { get; set; }
+        public TitleModel TitleOfSlide { get; set; }
+        public ContentModel ContentOfSlide { get; set; }
         public string FonColor { get; set; }
         public int SlideNumber { get; set; }
-        public string TitleFontSize{get;set;}
-        public string ContentFontSize{get;set;}
+        public Guid SlideId { get; set; }
 
         public SlideModel()
         {
-            ContentOfSlide = new Content() { ContentId = Guid.NewGuid()};
-            TitleOfSlide = new Title() { TitleId = Guid.NewGuid()};
+            ContentOfSlide = new ContentModel() { ContentId = Guid.NewGuid()};
+            TitleOfSlide = new TitleModel() { TitleId = Guid.NewGuid()};
             FonColor = "ffffff";
             PresentationId = Guid.Empty;
             SlideNumber = 0;
-            ContentFontSize = "";
-            TitleFontSize = "";
+            SlideId = Guid.NewGuid();
+        }
+        public static SlideModel GetSlideModelFromDBSlide(Slide slide)
+        {
+            var slideModel = new SlideModel();
+            slideModel.ContentOfSlide = ContentModel.CreateFromContent(slide.Content);
+            slideModel.TitleOfSlide = TitleModel.CreateFromTitle(slide.Title);
+            slideModel.FonColor = slide.FonColor;
+            slideModel.SlideNumber = slide.SlideNumber;
+            slideModel.PresentationId = slide.PresentationId;
+            slideModel.SlideId = slide.SlideId;
+            return slideModel;
+            
         }
     }
 }
