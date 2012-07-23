@@ -4,12 +4,12 @@ to use a different color start by replacing all instances of
 #5c87b2 with your new color.
 ----------------------------------------------------------*/
 body {
-    background-color: #5c87b2;
+    background-color: #ffffff;
     font-size: .85em;
     font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
-    color: #696969;
+    color: red;
 }
 
 a:link {
@@ -77,7 +77,7 @@ h5, h6 {
 /* you can specify a greater or lesser percentage for the 
 page width. Or, you can specify an exact pixel width. */
 .page {
-    width: 90%;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -92,18 +92,18 @@ header, #header {
 header h1, #header h1 {
     font-weight: bold;
     padding: 5px 0;
-    margin: 0;
-    color: #fff;
+    display:block;
+    margin: 10px;
+    color: #FFFFFF;
     border: none;
     line-height: 2em;
     font-size: 32px !important;
-    text-shadow: 1px 1px 2px #111;
+    background-color: Red;
 }
 
 #main {
     padding: 30px 30px 15px 30px;
     background-color: #fff;
-    border-radius: 4px 0 0 0;
     -webkit-border-radius: 4px 0 0 0;
     -moz-border-radius: 4px 0 0 0;
 }
@@ -125,11 +125,10 @@ footer,
 /* TAB MENU   
 ----------------------------------------------------------*/
 ul#menu {
-    border-bottom: 1px #5C87B2 solid;
+    border-bottom: 1px #380000  solid;
     padding: 0 0 2px;
-    position: relative;
     margin: 0;
-    text-align: right;
+    position: block;
 }
 
 ul#menu li {
@@ -150,16 +149,14 @@ ul#menu li a {
     font-weight: bold;
     text-decoration: none;
     line-height: 2.8em;
-    background-color: #e8eef4;
-    color: #034af3;
-    border-radius: 4px 4px 0 0;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
+    background-color: #ffffff;
+    color: #990000;
 }
 
 ul#menu li a:hover {
     background-color: #fff;
     text-decoration: none;
+    text-decoration: underline;
 }
 
 ul#menu li a:active {
@@ -244,12 +241,14 @@ table th {
 nav, 
 #menucontainer {
     margin-top: 40px;
+    
 }
 
 div#title {
     display: block;
     float: left;
     text-align: left;
+    margin:10px;
 }
 
 #logindisplay {
@@ -257,22 +256,22 @@ div#title {
     display: block;
     text-align: right;
     margin: 10px;
-    color: White;
+    color: red;
 }
 
 #logindisplay a:link {
-    color: white;
-    text-decoration: underline;
+    color: red;
+    text-decoration: none;
 }
 
 #logindisplay a:visited {
-    color: white;
-    text-decoration: underline;
+    color: red;
+    text-decoration: none;
 }
 
 #logindisplay a:hover {
-    color: white;
-    text-decoration: none;
+    color: red;
+    text-decoration: underline;
 }
 
 /* Styles for validation helpers
@@ -322,6 +321,7 @@ div#title {
 .tri-state {
     width: 6em;
 }
-#myCanvas {
-        border: 1px solid #9C9898;
-      }
+#myCanvas 
+{
+    border: 1px solid #9C9898;
+}

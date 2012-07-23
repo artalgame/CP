@@ -13,18 +13,22 @@
     <div class="page">
         <header>
             <div id="title">
-                <h1>SimPres - простейшая презентация за секунду</h1>
+                    <h1>
+                        SimPres - простейшая презентация за секунду</h1>
             </div>
             <div id="logindisplay">
                 @Html.Partial("_LogOnPartial")
             </div>
-            <nav>
-                <ul id="menu">
-                    <li>@Html.ActionLink("Создать презентацию", "NewPresentation", "Presentation")</li>
-                    <li>@Html.ActionLink("Мои презентации", "AllUserPresentation", "Presentation")</li>
-                    <li>@Html.ActionLink("Пользователи", "Users", "Home")</li>
-                </ul>
-            </nav>
+            <div>
+                <nav>
+                        <ul id="menu">
+                        <li>@Html.ActionLink("ГЛАВНАЯ", "Index", "Home")</li>
+                            <li>@Html.ActionLink("СОЗДАТЬ ПРЕЗЕНТАЦИЮ", "NewPresentation", "Presentation")</li>
+                            <li>@Html.ActionLink("МОИ ПРЕЗЕНТАЦИИ", "AllUserPresentation", "Presentation")</li>
+                            <li>@Html.ActionLink("ПОЛЬЗОВАТЕЛИ", "Users", "Home")</li>
+                        </ul>
+                </nav>
+            </div>
         </header>
         <section id="main">
             @RenderBody()

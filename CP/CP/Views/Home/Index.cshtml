@@ -6,3 +6,22 @@
 <p>
     Последние созданные презентации
 </p>
+@using (Html.BeginForm())
+{
+    <table>
+        @foreach (var presentation in ViewBag.NewPresentations)
+        {      
+            <tr>
+                <td>
+                @Html.ActionLink((string)presentation.Name, "SelectPresentation", new { id = presentation.PresentationId, controller = "Presentation"})
+                </td>
+                <td>
+                @presentation.About
+                </td>
+                <td>@presentation.User.Login</td>
+                <td>@presentation.DateOfCreate</td>
+            </tr>           
+        }
+    </table>
+   
+}

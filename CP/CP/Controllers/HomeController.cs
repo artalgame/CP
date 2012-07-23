@@ -12,7 +12,9 @@ namespace CP.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to ASP.NET MVC!";
-
+            List<Presentation> allPresentationList = new SimPresEntities().Presentations.OrderBy(x => x.DateOfCreate).ToList();
+            allPresentationList.Reverse();
+            ViewBag.NewPresentations = allPresentationList.Take(12).ToList();
             return View();
         }
 
